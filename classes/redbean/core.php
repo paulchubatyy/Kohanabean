@@ -18,9 +18,16 @@ class Redbean_Core {
 				require_once Kohana::find_file('vendor', 'redbean/RedBean/redbean.inc.php');
 			}
 
-			self::$instances[$group] = RedBean_Setup::kickstartDev(
-				$config->dsn, $config->user, $config->pass);
-			self::$instances[$group]->freeze(Kohana::$environment == Kohana::PRODUCTION);
+			if (Kohana::$environment == Kohana::PRODUCTION) {
+				$method = 'kickstartFrozen';
+			} else {
+				$method = 'kickstartDev';
+			}
+
+			self::$instances[$group] = call_user_func_array(
+				array('RedBean_Setup', $method),
+				array($config->dsn, $config->user, $config->pass)
+			);
 		}
 		return self::$instances[$group];
 	}
