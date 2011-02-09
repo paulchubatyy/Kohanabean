@@ -20,6 +20,7 @@ class Redbean_Core {
 
 			self::$instances[$group] = RedBean_Setup::kickstartDev(
 				$config->dsn, $config->user, $config->pass);
+			self::$instances[$group]->freeze(Kohana::$environment == Kohana::PRODUCTION);
 		}
 		return self::$instances[$group];
 	}
