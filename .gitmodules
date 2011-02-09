@@ -1,0 +1,3 @@
+[submodule "vendor/redbean"]
+	path = vendor/redbean
+	url = https://github.com/gabordemooij/redbean.git
