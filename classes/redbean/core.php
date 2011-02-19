@@ -13,9 +13,9 @@ class Redbean_Core {
 	public static function instance($group = 'default')
 	{
 		if ( ! isset(self::$instances[$group])) {
-			$config = Kohana::config('redbean' . $group);
+			$config = Kohana::config('redbean.' . $group);
 			if ( ! class_exists('RedBean_Setup')) {
-				require_once Kohana::find_file('vendor', 'redbean/RedBean/redbean.inc.php');
+				require_once Kohana::find_file('vendor', 'redbean/RedBean/redbean.inc');
 			}
 
 			if (Kohana::$environment == Kohana::PRODUCTION) {
@@ -26,7 +26,7 @@ class Redbean_Core {
 
 			self::$instances[$group] = call_user_func_array(
 				array('RedBean_Setup', $method),
-				array($config->dsn, $config->user, $config->pass)
+				array($config['dsn'], $config['user'], $config['pass'])
 			);
 		}
 		return self::$instances[$group];
@@ -37,7 +37,7 @@ class Redbean_Core {
 		return self::instance($group)->getDatabaseAdapter();
 	}
 
-	public static function redbean()
+	public static function redbean($group = 'default')
 	{
 		return self::instance($group)->getRedBean();
 	}

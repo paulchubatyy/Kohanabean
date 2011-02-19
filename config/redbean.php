@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @package		Kohanabean
+ */
 return array(
 	'default' => array(
 		'dsn' => 'mysql:host=localhost;dbname=test',
